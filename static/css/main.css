@@ -24,7 +24,7 @@ p{
 
 .logo{
 	height: 48px;
-	margin-top: 15px;
+	margin-top: 10px;
 	margin-right: 20px;
 	float: left;
 }
@@ -111,4 +111,47 @@ fieldset[disabled] .btn-grey.active {
 @-o-keyframes fadein {
     from { opacity: 0; margin-top: 100px; }
     to   { opacity: 1; margin-top: 0px;}
+}
+
+.alert-orange{
+	color: #fff;
+	background-color:#E67E22;
+	border-color:#D35400;
+}
+.alert-red{
+	color: #fff;
+	background-color:#E74C2C;
+	border-color:#C0392B;
+}
+.alert-turquoise{
+	color: #fff;
+	background-color:#1ABC9C;
+	border-color:#16A085;
+}
+.alert-green{
+	color: #fff;
+	background-color:#2ECC71;
+	border-color:#27AE60;
+}
+.alert-blue{
+	color: #fff;
+	background-color:#3498DB;
+	border-color:#2980B9;
+}
+.alert-purple{
+	color: #fff;
+	background-color:#9B59B6;
+	border-color:#8E44AD;
+}
+
+.back{
+	margin-bottom: 20px;
+}
+
+.disappear{
+	background: none;
+	border: none;
+	box-shadow: none;
+	resize: none;
+	color: #fff;
 }
