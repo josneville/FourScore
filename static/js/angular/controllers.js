@@ -5,8 +5,16 @@ FourScore.controller('main', function($scope, $http, $window, $location){
 	}
 });
 
-FourScore.controller('analyze', function($scope, $http, $window, $location) {
-	$window.alert(JSON.stringify($scope.$parent.sentenceArray));
+FourScore.controller('analyze', function($scope, $http, $window, $location, apiAlgo) {
+	apiAlgo.sendSentences(JSON.stringify($scope.$parent.sentenceArray))
+		.success(function(data, status, headers, config){
+			$scope.emotions = data.emotions;
+			for(var i = 0; i < $scope.$parents.sentenceArray.length; i++){
+				$scope.$parent.sentenceArray[i].emotions = $scope.emotions[i];
+			}
+		}).error(function(data, status, headers, config){
+
+		});
 	if (typeof $scope.$parent.sentenceArray === "undefined" || $scope.$parent.sentenceArray.length == 0){
 		$location.path('/');
 	}
@@ -57,7 +65,6 @@ FourScore.controller('input', function($scope, $http, $window, $location){
 				$scope.$parent.sentenceArray.push({
 					'index' : i,
 					'value' : phrase,
-					'emotion' : Math.floor((Math.random() * 6)),
 					'hasSpace' : hasSpace
 				});
 			}
