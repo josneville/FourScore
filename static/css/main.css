@@ -1,11 +1,33 @@
 body{
 	background-color: #2C3E50;
+	    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+         -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
 }
 
-p, h1, h2, h3, h4, h5, h6{
+p, h1, h2, h3, h4, h5, h6, div, span{
+	font-family: 'Josefin Slab', serif;
 	color: #fff;
 }
 
+h1{
+	font-size: 48px;
+	font-weight: 700;
+}
+
+p{
+	font-size: 24px;
+	font-weight: 300;
+}	
+
+.logo{
+	height: 48px;
+	margin-top: 15px;
+	margin-right: 20px;
+	float: left;
+}
 #mainTextDiv{
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -13,12 +35,13 @@ p, h1, h2, h3, h4, h5, h6{
 
 #mainText{
 	resize: none;
+	height: 60%;
 }
 
 .btn-grey { 
   color: #FFFFFF; 
-  background-color: #95A596; 
-  border-color: #BDC3C7; 
+  background-color: #95A5A6; 
+  border-color: #7F8C8D; 
 } 
  
 .btn-grey:hover, 
@@ -27,8 +50,8 @@ p, h1, h2, h3, h4, h5, h6{
 .btn-grey.active, 
 .open .dropdown-toggle.btn-grey { 
   color: #FFFFFF; 
-  background-color: #ECF0F1; 
-  border-color: #BDC3C7; 
+  background-color: #7F8C8D; 
+  border-color: #7F8C8D; 
 } 
  
 .btn-grey:active, 
@@ -52,11 +75,40 @@ fieldset[disabled] .btn-grey:active,
 .btn-grey.disabled.active, 
 .btn-grey[disabled].active, 
 fieldset[disabled] .btn-grey.active { 
-  background-color: #95A596; 
-  border-color: #BDC3C7; 
+  background-color: #95A5A6; 
+  border-color: #7F8C8D; 
 } 
  
 .btn-grey .badge { 
-  color: #95A596; 
+  color: #95A5A6; 
   background-color: #FFFFFF; 
+}
+
+@keyframes fadein {
+    from { opacity: 0; margin-top: 100px; }
+    to   { opacity: 1; margin-top: 0px;}
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; margin-top: 100px; }
+    to   { opacity: 1; margin-top: 0px;}
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; margin-top: 100px; }
+    to   { opacity: 1; margin-top: 0px;}
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; margin-top: 100px; }
+    to   { opacity: 1; margin-top: 0px;}
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; margin-top: 100px; }
+    to   { opacity: 1; margin-top: 0px;}
 }
