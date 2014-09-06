@@ -11,3 +11,11 @@ FourScore.controller('main', function($scope, $http, $window, $location, $sce){
 		});
 	}
 });
+
+FourScore.controller('input', function($scope, $http, $window, $location){
+
+});
+
+FourScore.controller('analyze', function($scope, $http, $window, $location){
+
+});
