@@ -6,12 +6,11 @@
 		<link rel="stylesheet" href="css/main.css">
 	</head>
 	<body ng-controller="main">
-		<textarea id="mainText"></textarea>
-		<button ng-click="showMainText()"></button>
-		<p id="result">Yo</p>
+		<div ng-include src="'views/input.html'"></div>
 		<script type="text/javascript" src="js/libraries/jquery.min.js"></script>
 		<script type="text/javascript" src="js/libraries/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/libraries/angular.min.js"></script>
+		<script type="text/javascript" src="js/libraries/angular-route.min.js"></script>
 		<script type="text/javascript" src="js/libraries/angular-sanitize.min.js"></script>
 		<script type="text/javascript" src="js/angular/main.js"></script>
 		<script type="text/javascript" src="js/angular/config.js"></script>
@@ -19,5 +18,6 @@
 		<script type="text/javascript" src="js/angular/directives.js"></script>
 		<script type="text/javascript" src="js/angular/filters.js"></script>
 		<script type="text/javascript" src="js/angular/services.js"></script>
+		<script type="text/javascript" src="js/angular/routes.js"></script>
 	</body>
 </html>

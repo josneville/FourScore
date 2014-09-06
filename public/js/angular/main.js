@@ -4,5 +4,6 @@ angular.module('FourScore', [
 	'FourScore.directives',
 	'FourScore.filters',
 	'FourScore.services',
+	'FourScore.routes', 
 	'ngSanitize'
 ]);
