@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="col-xs-12 back">
+		<a ng-click="return()" class="btn btn-lg btn-grey"><i class="fa fa-arrow-left"></i>  Back</a>
+	</div>
+
+	<div class="col-sm-4 col-xs-12 pull-right">
+		
+	</div>
+	<div class="col-sm-8 col-xs-12">
+		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass(sentence.emotion)" role="alert"><textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea></div>
+	</div>
+</div>

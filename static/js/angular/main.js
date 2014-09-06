@@ -5,5 +5,6 @@ angular.module('FourScore', [
 	'FourScore.filters',
 	'FourScore.services',
 	'FourScore.routes', 
+	'monospaced.elastic',
 	'ngSanitize'
 ]);
