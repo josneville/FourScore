@@ -122,5 +122,3 @@ if __name__ == "__main__":
     print accuracy_score(man.predict(lannister), lannister_y)
     print accuracy_score(man.predict(king), king_y)
     print accuracy_score(man.predict(kennedy), kennedy_y)
-
-
