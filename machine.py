@@ -1,6 +1,4 @@
 from sklearn.pipeline import Pipeline
-from scipy.interpolate import interp1d
-from scipy.interpolate import UnivariateSpline
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import TruncatedSVD
 from sklearn import metrics
@@ -31,7 +29,7 @@ def smoothListGaussian(list,degree=5):
          weightGauss.append(gauss)  
      weight=np.array(weightGauss)*weight  
      smoothed=[0.0]*(len(list)-window)  
-     for i in range(len(list)):  
+     for i in range(len(smoothed)):  
          smoothed[i]=sum(np.array(list[i:i+window])*weight)/sum(weight)  
      return smoothed  
 
@@ -102,28 +100,20 @@ class Machine:
 			list_hope.append(item[3])		
 			list_sad.append(item[4])
 			list_surp.append(item[5])
-		'''
 		list_ang = smoothListGaussian(list_ang)	
 		list_dis = smoothListGaussian(list_dis)	
 		list_fear = smoothListGaussian(list_fear)	
 		list_hope = smoothListGaussian(list_hope)	
 		list_sad = smoothListGaussian(list_sad)	
 		list_surp = smoothListGaussian(list_surp)	
-		list_ang = interp1d(np.arange(len(list_ang)), list_ang, kind='cubic')
-
-		list_dis = interp1d(np.arange(len(list_dis), list_dis))
-		list_fear = interp1d(np.arange(len(list_ang), list_fear))
-		list_hope = interp1d(np.arange(len(list_ang), list_hope))
-		list_sad = interp1d(np.arange(len(list_ang), list_sad))
-		list_surp = interp1d(np.arange(len(list_ang), list_surp))
 		new_probs = []
 		for i in range(0, len(list_ang)):
-			new_probs.append([list_ang[i], list_dis[i], list_fear[i], list_hope[i], list_sad[i], list_surp[i]])
-		'''	
-		for item in probabilities:
+			new_probs.append(np.array([list_ang[i], list_dis[i], list_fear[i], list_hope[i], list_sad[i], list_surp[i]]))
+			
+		for item in new_probs:
 			item[3] = item[3] - .1 #Arbitrary "hope" de-scale
-		#return new_probs
-		return probabilities
+		return np.array(new_probs)
+		#return probabilities
 			
 if __name__ == "__main__": 
     man = Machine() 
