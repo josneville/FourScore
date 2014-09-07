@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 import json
 from random import randint
@@ -11,7 +12,6 @@ classifier.make_svm()
 @app.route('/')
 def main():
 	return render_template('index.html')
-   # return render_template('index.html') 
 
 @app.route('/analyze')
 def analyze():
@@ -35,5 +35,4 @@ def run():
 	return json.dumps(to_return),200
 
 if __name__ == "__main__":
-	app.debug=True
-	app.run()
+	app.run(host='0.0.0.0', port=int(os.getenv('VCAP_APP_PORT', '5000')))
