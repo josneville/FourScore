@@ -3,10 +3,14 @@
 		<a ng-click="return()" class="btn btn-lg btn-grey"><i class="fa fa-arrow-left"></i>  Back</a>
 	</div>
 
-	<div class="col-sm-4 col-xs-12 pull-right">
-		
+	<div class="col-md-6 col-xs-12 pull-right">
+		<div class="col-xs-12">
+			<linechart style="line-graph" data="emotions" options="options" mode=""></linechart>
+		</div>
 	</div>
-	<div class="col-sm-8 col-xs-12">
-		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert"><textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea></div>
+	<div class="col-md-6 col-xs-12">
+		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert">
+			<textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea>
+		</div>
 	</div>
 </div>

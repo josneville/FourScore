@@ -11,9 +11,19 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	}
 	apiAlgo.sendSentences(JSON.stringify($scope.$parent.sentenceArray))
 		.success(function(data, status, headers, config){
-			$scope.emotions = data.emotions;
+			var emotions = data.emotions;
+			$scope.emotions = [];
 			for(var i = 0; i < $scope.$parent.sentenceArray.length; i++){
-				$scope.$parent.sentenceArray[i].emotions = $scope.emotions[i];
+				$scope.$parent.sentenceArray[i].emotions = emotions[i];
+				$scope.emotions.push({
+					"x": i,
+					"val_0": emotions[i][0],
+					"val_1": emotions[i][1],
+					"val_2": emotions[i][2],
+					"val_3": emotions[i][3],
+					"val_4": emotions[i][4],
+					"val_5": emotions[i][5]
+				});
 			}
 		}).error(function(data, status, headers, config){
 
@@ -28,13 +38,13 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 			case 1:
 				return 'alert-orange';
 			case 2:
-				return 'alert-purple';
+				return 'alert-yellow';
 			case 3:
-				return 'alert-green';
+				return 'alert-turquoise';
 			case 4:
 				return 'alert-blue';
 			case 5:
-				return 'alert-turquoise';
+				return 'alert-purple';
 			default :
 				return '';
 		}
@@ -51,6 +61,78 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 			
 		}
 		$location.path('/');
+	};
+	$scope.options = {
+	  series: [
+	    {
+	      y: "val_0",
+	      label: "Assertion",
+	      color: "#E74C3C",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_0",
+	      drawDots: true
+	    },
+	    {
+	      y: "val_1",
+	      label: "Disgust",
+	      color: "#E67E22",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_1",
+	      drawDots: true
+	    },
+	    {
+	      y: "val_2",
+	      label: "Fear",
+	      color: "#F1C40F",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_2",
+	      drawDots: true
+	    },
+	    {
+	      y: "val_3",
+	      label: "Hope",
+	      color: "#1ABC9C",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_3",
+	      drawDots: true
+	    },
+	    {
+	      y: "val_4",
+	      label: "Melancholy",
+	      color: "#3498DB",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_4",
+	      drawDots: true
+	    },
+	    {
+	      y: "val_5",
+	      label: "Surprise",
+	      color: "#9B59B6",
+	      axis: "y",
+	      type: "line",
+	      thickness: "1px",
+	      id: "series_5",
+	      drawDots: true
+	    },
+	  ],
+	  stacks: [],
+	  axes: {x: {type: "linear", key: "x"}, y: {type: "linear"}},
+	  lineMode: "linear",
+	  tension: 0.7,
+	  tooltip: {mode: "scrubber"},
+	  drawLegend: true,
+	  drawDots: false,
+	  columnsHGap: 5
 	};
 });
 
