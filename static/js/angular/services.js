@@ -1,12 +1,12 @@
 var FourScore = angular.module('FourScore.services', []);
 
-FourScore.factory('apiAlgo', function($location, $http){
+FourScore.factory('apiAlgo', function($http){
 	return {
 		sendSentences : function(sentenceArr){
 			return $http({
 				url : '/api/runAlgorithm',
 				data : {
-					"sentences" : sentenceArr
+					'sentences' : sentenceArr
 				},
 				method : "POST"
 			});

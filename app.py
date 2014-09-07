@@ -17,24 +17,22 @@ def main():
 def analyze():
     return render_template('index.html')
 
-@app.route('/api/runAlgorithm', methods=['POST'])
+@app.route('/api/runAlgorithm', methods=['POST', 'GET'])
 def run():
-	if 'sentences' in request.form:
+	if 'sentences' in request.json:
 		# Get the JSON data from the form.
-		sentences = request.form['sentences']
-		data = json.loads(sentences)
-		print data
+		sentences = request.json['sentences']
+		entireData = json.loads(sentences)
+		data = []
+		for sentence in entireData:
+			data.append(sentence['value'])
 		probs = classifier.get_probs(data)
-		print probs
 	else:
-		return "sentences not found",400
-	try:
-		returnJawn = json.loads('{"emotions":'+probs+',}') #fill returnJawn[emotions] with random numberse from 0 to 5.
-		#for sentence in data: 
-		#	returnJawn['emotions'].append(randint(0,5))
-		return json.dumps(returnJawn)
-	except:
-		return "Fail for unknown reasons"
+		return "sentences not given", 400
+	returnJawn = []; #fill returnJawn[emotions] with random numberse from 0 to 5.
+	to_return = {'emotions': probs.tolist()}
+	print to_return
+	return json.dumps(to_return),200
 
 if __name__ == "__main__":
 	app.debug=True
