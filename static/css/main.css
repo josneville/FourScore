@@ -36,13 +36,15 @@ p{
 
 #mainText{
 	resize: none;
+	color: #000;
+	font-weight: 700;
 	height: 60%;
 }
 
 .btn-grey { 
   color: #FFFFFF; 
-  background-color: #95A5A6; 
-  border-color: #7F8C8D; 
+  background-color: #34495E; 
+  border-color: #2C3E50; 
 } 
  
 .btn-grey:hover, 
@@ -51,8 +53,8 @@ p{
 .btn-grey.active, 
 .open .dropdown-toggle.btn-grey { 
   color: #FFFFFF; 
-  background-color: #7F8C8D; 
-  border-color: #7F8C8D; 
+  background-color: #2C3E50; 
+  border-color: #2C3E50; 
 } 
  
 .btn-grey:active, 
@@ -76,12 +78,12 @@ fieldset[disabled] .btn-grey:active,
 .btn-grey.disabled.active, 
 .btn-grey[disabled].active, 
 fieldset[disabled] .btn-grey.active { 
-  background-color: #95A5A6; 
-  border-color: #7F8C8D; 
+  background-color: #34495E; 
+  border-color: #2C3E50; 
 } 
  
 .btn-grey .badge { 
-  color: #95A5A6; 
+  color: #34495E; 
   background-color: #FFFFFF; 
 }
 
