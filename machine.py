@@ -93,6 +93,7 @@ class Machine:
 		list_sad = []
 		list_surp = []
 		probabilities = self.classifier.predict_proba(vector)
+		'''
 		for item in probabilities:
 			list_ang.append(item[0])
 			list_dis.append(item[1])
@@ -112,8 +113,9 @@ class Machine:
 			
 		for item in new_probs:
 			item[3] = item[3] - .1 #Arbitrary "hope" de-scale
-		return np.array(new_probs)
-		#return probabilities
+		'''
+		#return np.array(new_probs)
+		return probabilities
 			
 if __name__ == "__main__": 
     man = Machine() 
