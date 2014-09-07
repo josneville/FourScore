@@ -5,14 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-	return json.dumps({
-		"sentences":[
-			"cat",
-			"dog",
-			"doge"
-		]
-	})
-   # return render_template('index.html') 
+	return render_template('index.html') 
 
 @app.route('/analyze')
 def analyze():
