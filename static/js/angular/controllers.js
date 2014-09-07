@@ -15,6 +15,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 			$scope.emotions = [];
 			for(var i = 0; i < $scope.$parent.sentenceArray.length; i++){
 				$scope.$parent.sentenceArray[i].emotions = emotions[i];
+				$scope.$parent.sentenceArray[i].max = emotions[i].indexOf(Math.max.apply(Math, emotions[i]));
 				$scope.emotions.push({
 					"x": i,
 					"val_0": emotions[i][0],
@@ -70,6 +71,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 			.success(function(data, status, headers, config){
 				//window.alert("yo");
 				$scope.$parent.sentenceArray[index].emotions = data.emotions[index];
+				$scope.$parent.sentenceArray[index].max = data.emotions[index].indexOf(Math.max.apply(Math, data.emotions[index]));
 				$scope.emotions[index] = {
 					"x": index,
 					"val_0": data.emotions[index][0],
@@ -165,14 +167,20 @@ FourScore.controller('input', function($scope, $http, $window, $location){
 		for (var i = 0; i < $scope.$parent.splitArray.length; i++) {
 			var phrase = $scope.$parent.splitArray[i];
 			if(phrase !== '.' && phrase !== '?' && phrase !== '!' && phrase.substring(0,1) !== '\n'){
+				var hasSpace = false;
 				if (phrase.substring(0, 1) == " "){
 					phrase = phrase.substring(1);
-					var hasSpace = true;
+					hasSpace = true;
+				}
+				var active = false;
+				if ($scope.$parent.sentenceArray.length == 0){
+					active = true;
 				}
 				$scope.$parent.sentenceArray.push({
 					'index' : i,
 					'value' : phrase,
-					'hasSpace' : hasSpace
+					'hasSpace' : hasSpace,
+					'active' : active
 				});
 			}
 		}

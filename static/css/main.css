@@ -1,6 +1,7 @@
 body{
 	/*background-color: #2C3E50;*/
 	background-color: #fff;
+	margin-bottom: 50px;
 	    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 1s; /* Firefox < 16 */
         -ms-animation: fadein 1s; /* Internet Explorer */
@@ -8,7 +9,7 @@ body{
             animation: fadein 1s;
 }
 
-p, h1, h2, h3, h4, h5, h6, div, span, textarea{
+p, h1, h2, h3, h4, h5, h6, div, span{
 	font-family: 'Josefin Slab', serif;
 	color: #2C3E50;
 }
@@ -21,8 +22,7 @@ h1{
 p{
 	font-size: 24px;
 	font-weight: 300;
-}	
-
+}
 .logo{
 	height: 48px;
 	margin-top: 10px;
@@ -38,6 +38,7 @@ p{
 	resize: none;
 	color: #000;
 	font-weight: 700;
+	font-size: 18px;
 	height: 60%;
 }
 
@@ -119,35 +120,41 @@ fieldset[disabled] .btn-grey.active {
 	overflow-y: auto;
 	height: 100%;
 }
+.sentence-active{
+	border: solid grey 5px;
+}
 #line-graph{
 	height: 250px;
 }
-.alert-orange{
-	color: #fff;
-	background-color:#E67E22;
-	border-color:#D35400;
+.alert{
+	cursor: pointer;
 }
-.alert-red{
+.alert-0{
 	color: #fff;
 	background-color:#E74C2C;
 	border-color:#C0392B;
 }
-.alert-turquoise{
+.alert-1{
 	color: #fff;
-	background-color:#1ABC9C;
-	border-color:#16A085;
+	background-color:#E67E22;
+	border-color:#D35400;
 }
-.alert-yellow{
+.alert-2{
 	color: #fff;
 	background-color:#F1C40F;
 	border-color:#F39C12;
 }
-.alert-blue{
+.alert-3{
+	color: #fff;
+	background-color:#1ABC9C;
+	border-color:#16A085;
+}
+.alert-4{
 	color: #fff;
 	background-color:#3498DB;
 	border-color:#2980B9;
 }
-.alert-purple{
+.alert-5{
 	color: #fff;
 	background-color:#9B59B6;
 	border-color:#8E44AD;
