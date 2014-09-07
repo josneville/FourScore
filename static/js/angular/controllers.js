@@ -5,13 +5,24 @@ FourScore.controller('main', function($scope, $http, $window, $location){
 	}
 });
 
-FourScore.controller('analyze', function($scope, $http, $window, $location) {
-	$window.alert(JSON.stringify($scope.$parent.sentenceArray));
+FourScore.controller('analyze', function($scope, $http, $window, $location, apiAlgo) {
 	if (typeof $scope.$parent.sentenceArray === "undefined" || $scope.$parent.sentenceArray.length == 0){
 		$location.path('/');
 	}
-	$scope.getEmotionClass = function(emotionType){
-		switch (emotionType){
+	apiAlgo.sendSentences(JSON.stringify($scope.$parent.sentenceArray))
+		.success(function(data, status, headers, config){
+			$scope.emotions = data.emotions;
+			for(var i = 0; i < $scope.$parent.sentenceArray.length; i++){
+				$scope.$parent.sentenceArray[i].emotions = $scope.emotions[i];
+			}
+		}).error(function(data, status, headers, config){
+
+		})
+	;
+	$scope.getEmotionClass = function(index){
+		var emotions = $scope.$parent.sentenceArray[index].emotions;
+		var max = emotions.indexOf(Math.max.apply(Math, emotions));
+		switch (max){
 			case 0:
 				return 'alert-red';
 			case 1:
@@ -57,7 +68,6 @@ FourScore.controller('input', function($scope, $http, $window, $location){
 				$scope.$parent.sentenceArray.push({
 					'index' : i,
 					'value' : phrase,
-					'emotion' : Math.floor((Math.random() * 6)),
 					'hasSpace' : hasSpace
 				});
 			}

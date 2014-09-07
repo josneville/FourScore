@@ -1,32 +1,39 @@
 from flask import Flask, render_template, request
 import json
 from random import randint
+from machine import Machine
 app = Flask(__name__)
+
+classifier = Machine() 
+classifier.make_svm()
+
 
 @app.route('/')
 def main():
-	return render_template('index.html') 
+	return render_template('index.html')
+   # return render_template('index.html') 
 
 @app.route('/analyze')
 def analyze():
     return render_template('index.html')
 
-@app.route('/api/runalgorithm', methods=['POST'])
+@app.route('/api/runAlgorithm', methods=['POST', 'GET'])
 def run():
-	print 'Hello'
-	if 'sentences' in request.form:
+	if 'sentences' in request.json:
 		# Get the JSON data from the form.
-		sentences = request.form['sentences']
-		data = json.loads(sentences)
+		sentences = request.json['sentences']
+		entireData = json.loads(sentences)
+		data = []
+		for sentence in entireData:
+			data.append(sentence['value'])
+		probs = classifier.get_probs(data)
 	else:
-		return "sentences not found",400
-	try:
-		returnJawn = {'emotions':[]} #fill returnJawn[emotions] with random numberse from 0 to 5.
-		for sentence in sentences: 
-			returnJawn[emotions].append[randint(0,5)]
-		return returnJawn
-	except:
-		return "Fail for unknown reasons"
+		return "sentences not given", 400
+	returnJawn = []; #fill returnJawn[emotions] with random numberse from 0 to 5.
+	to_return = {'emotions': probs.tolist()}
+	print to_return
+	return json.dumps(to_return),200
+
 if __name__ == "__main__":
 	app.debug=True
 	app.run()
