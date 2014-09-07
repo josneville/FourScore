@@ -8,7 +8,7 @@ FourScore.controller('main', function($scope, $http, $window, $location){
 FourScore.controller('analyze', function($scope, $http, $window, $location, apiAlgo) {
 	if (typeof $scope.$parent.sentenceArray === "undefined" || $scope.$parent.sentenceArray.length == 0){
 		$location.path('/');
-	}
+	}	
 	apiAlgo.sendSentences(JSON.stringify($scope.$parent.sentenceArray))
 		.success(function(data, status, headers, config){
 			var emotions = data.emotions;
@@ -25,31 +25,19 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 					"val_4": Math.round(100 * emotions[i][4]) / 100,
 					"val_5": Math.round(100 * emotions[i][5]) / 100
 				});
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * emotions[i][0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * emotions[i][1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * emotions[i][2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * emotions[i][3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * emotions[i][4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * emotions[i][5]), color: "#9B59B6"}
+				];
 			}
 		}).error(function(data, status, headers, config){
 
 		})
 	;
-	$scope.getEmotionClass = function(index){
-		var emotions = $scope.$parent.sentenceArray[index].emotions;
-		var max = emotions.indexOf(Math.max.apply(Math, emotions));
-		switch (max){
-			case 0:
-				return 'alert-red';
-			case 1:
-				return 'alert-orange';
-			case 2:
-				return 'alert-yellow';
-			case 3:
-				return 'alert-turquoise';
-			case 4:
-				return 'alert-blue';
-			case 5:
-				return 'alert-purple';
-			default :
-				return '';
-		}
-	};
 	$scope.return = function(){
 		for (var i = 0; i < $scope.$parent.sentenceArray.length; i++){
 			//extract the text from each div
@@ -81,12 +69,20 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 					"val_4": data.emotions[index][4],
 					"val_5": data.emotions[index][5]
 				};
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * data.emotions[index][0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * data.emotions[index][1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * data.emotions[index][2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * data.emotions[index][3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * data.emotions[index][4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * data.emotions[index][5]), color: "#9B59B6"}
+				];
 			}).error(function(data, status, headers, config){
 
 			});
 	};
 
-	$scope.options = {
+	$scope.lineOptions = {
 	  series: [
 	    {
 	      y: "val_0",
@@ -140,7 +136,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	    },
 	    {
 	      y: "val_5",
-	      label: "Humor",
+	      label: "Surprise",
 	      color: "#9B59B6",
 	      axis: "y",
 	      type: "line",
@@ -159,12 +155,22 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	  columnsHGap: 5
 	};
 
+	$scope.pieOptions = {thickness: 10};
+
 	$scope.changeActive = function(index){
 		for (var i = 0; i < $scope.$parent.sentenceArray.length; i++) {
 			if(i != index){
 				$scope.$parent.sentenceArray[i].active = false;
 			} else {
 				$scope.$parent.sentenceArray[i].active = true;
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[5]), color: "#9B59B6"}
+				];
 			}
 		};
 	};

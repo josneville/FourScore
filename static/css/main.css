@@ -24,9 +24,9 @@ p{
 	font-weight: 300;
 }
 .logo{
-	height: 48px;
-	margin-top: 10px;
-	margin-right: 20px;
+	height: 60px;
+	margin-top: 12px;
+	margin-right: 25px;
 	float: left;
 }
 #mainTextDiv{
@@ -116,6 +116,12 @@ fieldset[disabled] .btn-grey.active {
     from { opacity: 0; margin-top: 100px; }
     to   { opacity: 1; margin-top: 0px;}
 }
+
+@media (max-width: 992px) { 
+	#pieChart{
+		display: none
+	}
+}
 .scrollable{
 	overflow-y: auto;
 	height: 100%;
@@ -123,7 +129,7 @@ fieldset[disabled] .btn-grey.active {
 .sentence-active{
 	border: solid grey 5px;
 }
-#line-graph{
+.custom-graph{
 	height: 250px;
 }
 .alert{
@@ -162,6 +168,9 @@ fieldset[disabled] .btn-grey.active {
 
 .back{
 	margin-bottom: 20px;
+}
+.centerered{
+	justify-content: center;
 }
 
 .disappear{

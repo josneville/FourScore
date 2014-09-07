@@ -7,6 +7,7 @@ angular.module('FourScore', [
 	'FourScore.routes', 
 	'monospaced.elastic',
 	'n3-line-chart',
+	'n3-pie-chart',
 	'angular-loading-bar',
 	'ngSanitize'
 ]);
