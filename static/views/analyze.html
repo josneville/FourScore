@@ -9,8 +9,8 @@
 		</div>
 	</div>
 	<div class="col-md-6 col-xs-12 scrollable">
-		<div contenteditable="true" ng-repeat="sentence in sentenceArray" class="alert alert-{{sentence.max}}" ng-class="{'sentence-active': sentence.active}" role="alert">
-			<textarea msd-elastic ng-model="sentence.value" ng-change="changeSentence($index)" class="form-control disappear"></textarea>
+		<div ng-repeat="sentence in sentenceArray" class="alert alert-{{sentence.max}}" ng-class="{'sentence-active': sentence.active}" ng-click="changeActive($index)" role="alert">
+			<textarea msd-elastic ng-model="sentence.value" ng-change="changeSentence($index)" ng-focus="changeActive($index)" class="form-control disappear"></textarea>
 		</div>
 	</div>
 </div>

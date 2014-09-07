@@ -18,12 +18,12 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 				$scope.$parent.sentenceArray[i].max = emotions[i].indexOf(Math.max.apply(Math, emotions[i]));
 				$scope.emotions.push({
 					"x": i,
-					"val_0": emotions[i][0],
-					"val_1": emotions[i][1],
-					"val_2": emotions[i][2],
-					"val_3": emotions[i][3],
-					"val_4": emotions[i][4],
-					"val_5": emotions[i][5]
+					"val_0": Math.round(100 * emotions[i][0]) / 100,
+					"val_1": Math.round(100 * emotions[i][1]) / 100,
+					"val_2": Math.round(100 * emotions[i][2]) / 100,
+					"val_3": Math.round(100 * emotions[i][3]) / 100,
+					"val_4": Math.round(100 * emotions[i][4]) / 100,
+					"val_5": Math.round(100 * emotions[i][5]) / 100
 				});
 			}
 		}).error(function(data, status, headers, config){
@@ -70,8 +70,8 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 		apiAlgo.sendSentences(JSON.stringify($scope.$parent.singleSentence))
 			.success(function(data, status, headers, config){
 				//window.alert("yo");
-				$scope.$parent.sentenceArray[index].emotions = data.emotions[index];
-				$scope.$parent.sentenceArray[index].max = data.emotions[index].indexOf(Math.max.apply(Math, data.emotions[index]));
+				$scope.$parent.sentenceArray[index].emotions = data.emotions[0];
+				$scope.$parent.sentenceArray[index].max = data.emotions[0].indexOf(Math.max.apply(Math, data.emotions[0]));
 				$scope.emotions[index] = {
 					"x": index,
 					"val_0": data.emotions[index][0],
@@ -157,6 +157,16 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	  drawLegend: true,
 	  drawDots: false,
 	  columnsHGap: 5
+	};
+
+	$scope.changeActive = function(index){
+		for (var i = 0; i < $scope.$parent.sentenceArray.length; i++) {
+			if(i != index){
+				$scope.$parent.sentenceArray[i].active = false;
+			} else {
+				$scope.$parent.sentenceArray[i].active = true;
+			}
+		};
 	};
 });
 
