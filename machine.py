@@ -72,7 +72,7 @@ class Machine:
 	def get_probs(self, vector):
 		probabilities = self.classifier.predict_proba(vector)
 		for item in probabilities:
-			print item
+			item[3] = item[3] - .15 #Arbitrary "hope" de-scale
 		return probabilities
 			
 if __name__ == "__main__": 
