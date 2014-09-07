@@ -5,13 +5,12 @@
 
 	<div class="col-md-6 col-xs-12 pull-right">
 		<div class="col-xs-12">
-			<linechart style="height: 250px;" data="emotions" options="options" mode=""></linechart>
+			<linechart style="line-graph" data="emotions" options="options" mode=""></linechart>
 		</div>
 	</div>
 	<div class="col-md-6 col-xs-12">
 		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert">
 			<textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea>
-			{{sentence.emotions}}
 		</div>
 	</div>
 </div>
