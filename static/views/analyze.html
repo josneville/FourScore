@@ -4,13 +4,16 @@
 	</div>
 
 	<div class="col-md-6 col-xs-12 pull-right">
-		<div class="col-xs-12">
-			<linechart id="line-graph" data="emotions" options="options" mode=""></linechart>
+		<div class="col-xs-12 centerered">
+			<linechart class="custom-graph" data="emotions" options="lineOptions" mode=""></linechart>
+		</div>
+		<div class="col-xs-12 centerered">
+			<pie-chart class="custom-graph" id="pieChart" data="data" options="pieOptions"></pie-chart>
 		</div>
 	</div>
 	<div class="col-md-6 col-xs-12 scrollable">
-		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert">
-			<textarea msd-elastic ng-model="sentence.value" ng-change="changeSentence($index)" class="form-control disappear"></textarea>
+		<div ng-repeat="sentence in sentenceArray" class="alert alert-{{sentence.max}}" ng-class="{'sentence-active': sentence.active}" ng-click="changeActive($index)" role="alert">
+			<textarea msd-elastic ng-model="sentence.value" ng-change="changeSentence($index)" ng-focus="changeActive($index)" class="form-control disappear"></textarea>
 		</div>
 	</div>
 </div>

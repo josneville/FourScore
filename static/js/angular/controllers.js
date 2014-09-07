@@ -8,47 +8,36 @@ FourScore.controller('main', function($scope, $http, $window, $location){
 FourScore.controller('analyze', function($scope, $http, $window, $location, apiAlgo) {
 	if (typeof $scope.$parent.sentenceArray === "undefined" || $scope.$parent.sentenceArray.length == 0){
 		$location.path('/');
-	}
+	}	
 	apiAlgo.sendSentences(JSON.stringify($scope.$parent.sentenceArray))
 		.success(function(data, status, headers, config){
 			var emotions = data.emotions;
 			$scope.emotions = [];
 			for(var i = 0; i < $scope.$parent.sentenceArray.length; i++){
 				$scope.$parent.sentenceArray[i].emotions = emotions[i];
+				$scope.$parent.sentenceArray[i].max = emotions[i].indexOf(Math.max.apply(Math, emotions[i]));
 				$scope.emotions.push({
 					"x": i,
-					"val_0": emotions[i][0],
-					"val_1": emotions[i][1],
-					"val_2": emotions[i][2],
-					"val_3": emotions[i][3],
-					"val_4": emotions[i][4],
-					"val_5": emotions[i][5]
+					"val_0": Math.round(100 * emotions[i][0]) / 100,
+					"val_1": Math.round(100 * emotions[i][1]) / 100,
+					"val_2": Math.round(100 * emotions[i][2]) / 100,
+					"val_3": Math.round(100 * emotions[i][3]) / 100,
+					"val_4": Math.round(100 * emotions[i][4]) / 100,
+					"val_5": Math.round(100 * emotions[i][5]) / 100
 				});
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * emotions[i][0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * emotions[i][1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * emotions[i][2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * emotions[i][3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * emotions[i][4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * emotions[i][5]), color: "#9B59B6"}
+				];
 			}
 		}).error(function(data, status, headers, config){
 
 		})
 	;
-	$scope.getEmotionClass = function(index){
-		var emotions = $scope.$parent.sentenceArray[index].emotions;
-		var max = emotions.indexOf(Math.max.apply(Math, emotions));
-		switch (max){
-			case 0:
-				return 'alert-red';
-			case 1:
-				return 'alert-orange';
-			case 2:
-				return 'alert-yellow';
-			case 3:
-				return 'alert-turquoise';
-			case 4:
-				return 'alert-blue';
-			case 5:
-				return 'alert-purple';
-			default :
-				return '';
-		}
-	};
 	$scope.return = function(){
 		for (var i = 0; i < $scope.$parent.sentenceArray.length; i++){
 			//extract the text from each div
@@ -69,7 +58,8 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 		apiAlgo.sendSentences(JSON.stringify($scope.$parent.singleSentence))
 			.success(function(data, status, headers, config){
 				//window.alert("yo");
-				$scope.$parent.sentenceArray[index].emotions = data.emotions[index];
+				$scope.$parent.sentenceArray[index].emotions = data.emotions[0];
+				$scope.$parent.sentenceArray[index].max = data.emotions[0].indexOf(Math.max.apply(Math, data.emotions[0]));
 				$scope.emotions[index] = {
 					"x": index,
 					"val_0": data.emotions[index][0],
@@ -79,12 +69,20 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 					"val_4": data.emotions[index][4],
 					"val_5": data.emotions[index][5]
 				};
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * data.emotions[index][0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * data.emotions[index][1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * data.emotions[index][2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * data.emotions[index][3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * data.emotions[index][4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * data.emotions[index][5]), color: "#9B59B6"}
+				];
 			}).error(function(data, status, headers, config){
 
 			});
 	};
 
-	$scope.options = {
+	$scope.lineOptions = {
 	  series: [
 	    {
 	      y: "val_0",
@@ -138,7 +136,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	    },
 	    {
 	      y: "val_5",
-	      label: "Humor",
+	      label: "Surprise",
 	      color: "#9B59B6",
 	      axis: "y",
 	      type: "line",
@@ -156,6 +154,26 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	  drawDots: false,
 	  columnsHGap: 5
 	};
+
+	$scope.pieOptions = {thickness: 10};
+
+	$scope.changeActive = function(index){
+		for (var i = 0; i < $scope.$parent.sentenceArray.length; i++) {
+			if(i != index){
+				$scope.$parent.sentenceArray[i].active = false;
+			} else {
+				$scope.$parent.sentenceArray[i].active = true;
+				$scope.data = [
+				  {label: "Assertion", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[0]), color: "#E74C3C"},
+				  {label: "Disgust", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[1]), color: "#E67E22"},
+				  {label: "Fear", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[2]), color: "#F1C40F"},
+				  {label: "Hope", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[3]), color: "#1ABC9C"},
+				  {label: "Melancholy", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[4]), color: "#3498DB"},
+				  {label: "Surprise", value: Math.round(100 * $scope.$parent.sentenceArray[i].emotions[5]), color: "#9B59B6"}
+				];
+			}
+		};
+	};
 });
 
 FourScore.controller('input', function($scope, $http, $window, $location){
@@ -165,14 +183,20 @@ FourScore.controller('input', function($scope, $http, $window, $location){
 		for (var i = 0; i < $scope.$parent.splitArray.length; i++) {
 			var phrase = $scope.$parent.splitArray[i];
 			if(phrase !== '.' && phrase !== '?' && phrase !== '!' && phrase.substring(0,1) !== '\n'){
+				var hasSpace = false;
 				if (phrase.substring(0, 1) == " "){
 					phrase = phrase.substring(1);
-					var hasSpace = true;
+					hasSpace = true;
+				}
+				var active = false;
+				if ($scope.$parent.sentenceArray.length == 0){
+					active = true;
 				}
 				$scope.$parent.sentenceArray.push({
 					'index' : i,
 					'value' : phrase,
-					'hasSpace' : hasSpace
+					'hasSpace' : hasSpace,
+					'active' : active
 				});
 			}
 		}
