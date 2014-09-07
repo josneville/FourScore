@@ -1,5 +1,6 @@
 body{
-	background-color: #2C3E50;
+	/*background-color: #2C3E50;*/
+	background-color: #fff;
 	    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 1s; /* Firefox < 16 */
         -ms-animation: fadein 1s; /* Internet Explorer */
@@ -7,9 +8,9 @@ body{
             animation: fadein 1s;
 }
 
-p, h1, h2, h3, h4, h5, h6, div, span{
+p, h1, h2, h3, h4, h5, h6, div, span, textarea{
 	font-family: 'Josefin Slab', serif;
-	color: #fff;
+	color: #2C3E50;
 }
 
 h1{

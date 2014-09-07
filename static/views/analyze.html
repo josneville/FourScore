@@ -10,7 +10,7 @@
 	</div>
 	<div class="col-md-6 col-xs-12 scrollable">
 		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert">
-			<textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea>
+			<textarea msd-elastic ng-model="sentence.value" ng-change="changeSentence($index)" class="form-control disappear"></textarea>
 		</div>
 	</div>
 </div>
