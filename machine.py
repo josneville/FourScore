@@ -74,12 +74,12 @@ class Machine:
 		y_train = y 
     		X_train, y_train_text = self.get_data('trial')
 		classifier = Pipeline([
-			#('vectorizer', CountVectorizer(analyzer='word',strip_accents='unicode', stop_words='english', binary=True )),
-    			('tfidf', TfidfVectorizer(min_df=4, tokenizer=tokenize, token_pattern=r'\w{1,}', binary=True, analyzer='word')),
-    			#('scaler', StandardScaler(with_mean=False)),
-    			#('reduce', TruncatedSVD(n_components=15)),
+			('vectorizer', CountVectorizer(analyzer='word',strip_accents='unicode', stop_words='english', binary=True )),
+    			#('tfidf', TfidfVectorizer(min_df=4, tokenizer=tokenize, token_pattern=r'\w{1,}', binary=True, analyzer='word')),
+    			('scaler', StandardScaler(with_mean=False)),
+    			('reduce', TruncatedSVD(n_components=15)),
     			#('tfidf', TfidfTransformer()),
-    			('clf', MultinomialNB())])
+    			('clf', GaussianNB())])
 
 		self.classifier = classifier.fit(everybody, everybody_y)
 	
@@ -94,6 +94,8 @@ class Machine:
 if __name__ == "__main__": 
     man = Machine() 
     man.make_svm()
+    print accuracy_score(man.predict(gettysburg), ['joy','fear','fear','anger','joy','joy','joy','sadness','joy','joy'])
+    print man.predict(kennedy)
     print man.get_probs(gettysburg)
 
 
