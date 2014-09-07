@@ -7,6 +7,6 @@
 		
 	</div>
 	<div class="col-sm-8 col-xs-12">
-		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass(sentence.emotion)" role="alert"><textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea></div>
+		<div class="alert" contenteditable="true" ng-repeat="sentence in sentenceArray" ng-class="getEmotionClass($index)" role="alert"><textarea msd-elastic ng-model="sentence.value" class="form-control disappear"></textarea></div>
 	</div>
 </div>

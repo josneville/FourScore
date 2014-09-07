@@ -5,7 +5,6 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import Normalizer
 from sklearn import metrics
 from sklearn.cluster import KMeans, MiniBatchKMeans
-import pandas as pd
 import warnings
 import nltk
 from nltk.stem.porter import PorterStemmer
