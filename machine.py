@@ -1,4 +1,6 @@
 from sklearn.pipeline import Pipeline
+from scipy.interpolate import interp1d
+from scipy.interpolate import UnivariateSpline
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import TruncatedSVD
 from sklearn import metrics
@@ -17,6 +19,22 @@ from speeches import *
 
 
 stemmer = PorterStemmer()
+def smoothListGaussian(list,degree=5):  
+
+     window=degree*2-1  
+     weight=np.array([1.0]*window)  
+     weightGauss=[]  
+     for i in range(window):  
+         i=i-degree+1  
+         frac=i/float(window)  
+         gauss=1/(np.exp((4*(frac))**2))  
+         weightGauss.append(gauss)  
+     weight=np.array(weightGauss)*weight  
+     smoothed=[0.0]*(len(list)-window)  
+     for i in range(len(list)):  
+         smoothed[i]=sum(np.array(list[i:i+window])*weight)/sum(weight)  
+     return smoothed  
+
 def stem_tokens(tokens, stemmer):
     stemmed = []
     for item in tokens:
@@ -70,9 +88,41 @@ class Machine:
 		return self.classifier.predict(vector)
 
 	def get_probs(self, vector):
+		list_ang = []
+		list_dis = []
+		list_fear = []
+		list_hope = []
+		list_sad = []
+		list_surp = []
 		probabilities = self.classifier.predict_proba(vector)
 		for item in probabilities:
-			item[3] = item[3] - .15 #Arbitrary "hope" de-scale
+			list_ang.append(item[0])
+			list_dis.append(item[1])
+			list_fear.append(item[2])
+			list_hope.append(item[3])		
+			list_sad.append(item[4])
+			list_surp.append(item[5])
+		'''
+		list_ang = smoothListGaussian(list_ang)	
+		list_dis = smoothListGaussian(list_dis)	
+		list_fear = smoothListGaussian(list_fear)	
+		list_hope = smoothListGaussian(list_hope)	
+		list_sad = smoothListGaussian(list_sad)	
+		list_surp = smoothListGaussian(list_surp)	
+		list_ang = interp1d(np.arange(len(list_ang)), list_ang, kind='cubic')
+
+		list_dis = interp1d(np.arange(len(list_dis), list_dis))
+		list_fear = interp1d(np.arange(len(list_ang), list_fear))
+		list_hope = interp1d(np.arange(len(list_ang), list_hope))
+		list_sad = interp1d(np.arange(len(list_ang), list_sad))
+		list_surp = interp1d(np.arange(len(list_ang), list_surp))
+		new_probs = []
+		for i in range(0, len(list_ang)):
+			new_probs.append([list_ang[i], list_dis[i], list_fear[i], list_hope[i], list_sad[i], list_surp[i]])
+		'''	
+		for item in probabilities:
+			item[3] = item[3] - .1 #Arbitrary "hope" de-scale
+		#return new_probs
 		return probabilities
 			
 if __name__ == "__main__": 

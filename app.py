@@ -31,7 +31,6 @@ def run():
 		return "sentences not given", 400
 	returnJawn = []; #fill returnJawn[emotions] with random numberse from 0 to 5.
 	to_return = {'emotions': probs.tolist()}
-	print to_return
 	return json.dumps(to_return),200
 
 if __name__ == "__main__":
