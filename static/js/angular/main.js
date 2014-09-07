@@ -6,5 +6,6 @@ angular.module('FourScore', [
 	'FourScore.services',
 	'FourScore.routes', 
 	'monospaced.elastic',
+	'n3-line-chart',
 	'ngSanitize'
 ]);

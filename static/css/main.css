@@ -128,10 +128,10 @@ fieldset[disabled] .btn-grey.active {
 	background-color:#1ABC9C;
 	border-color:#16A085;
 }
-.alert-green{
+.alert-yellow{
 	color: #fff;
-	background-color:#2ECC71;
-	border-color:#27AE60;
+	background-color:#F1C40F;
+	border-color:#F39C12;
 }
 .alert-blue{
 	color: #fff;
