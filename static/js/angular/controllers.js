@@ -116,7 +116,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	    },
 	    {
 	      y: "val_5",
-	      label: "Surprise",
+	      label: "Humor",
 	      color: "#9B59B6",
 	      axis: "y",
 	      type: "line",
