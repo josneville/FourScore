@@ -50,19 +50,16 @@ class Machine:
 		return x_train, y_train 
 
 	def make_svm(self): #Trains the SVM
-		x_t, y_t = self.get_data()
-		x, y = self.get_data('test')
+		x, y = self.get_data()
+		x_t, y_t = self.get_data('test')
 
 		everybody = np.array(x+x_t+kennedy+lincoln+lannister+king)
 		everybody_y = y+y_t+kennedy_y+lincoln_y+lannister_y+king_y
 
-		X_train = np.array(x)
-		y_train = y 
-    		X_train, y_train_text = self.get_data('trial')
 		classifier = Pipeline([
 			#('vectorizer', CountVectorizer(analyzer='word',strip_accents='unicode', stop_words='english', binary=True )),
     			('tfidf', TfidfVectorizer(min_df=2, strip_accents='unicode', stop_words='english', tokenizer=tokenize, token_pattern=r'\w{1,}', binary=True, sublinear_tf=1, analyzer='word')),
-    			#('scaler', StandardScaler(with_mean=False)),
+    			('scaler', StandardScaler(with_mean=False)),
     			#('reduce', TruncatedSVD(n_components=15)),
     			#('tfidf', TfidfTransformer()),
     			('clf', MultinomialNB())])
@@ -73,10 +70,11 @@ class Machine:
 		return self.classifier.predict(vector)
 
 	def get_probs(self, vector):
-		return self.classifier.predict_proba(vector)
-	
-
-
+		probabilities = self.classifier.predict_proba(vector)
+		for item in probabilities:
+			print item
+		return probabilities
+			
 if __name__ == "__main__": 
     man = Machine() 
     man.make_svm()

@@ -62,6 +62,28 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 		}
 		$location.path('/');
 	};
+
+	$scope.changeSentence = function(index){
+		$scope.$parent.singleSentence = [$scope.$parent.sentenceArray[index]];
+
+		apiAlgo.sendSentences(JSON.stringify($scope.$parent.singleSentence))
+			.success(function(data, status, headers, config){
+				//window.alert("yo");
+				$scope.$parent.sentenceArray[index].emotions = data.emotions[index];
+				$scope.emotions[index] = {
+					"x": index,
+					"val_0": data.emotions[index][0],
+					"val_1": data.emotions[index][1],
+					"val_2": data.emotions[index][2],
+					"val_3": data.emotions[index][3],
+					"val_4": data.emotions[index][4],
+					"val_5": data.emotions[index][5]
+				};
+			}).error(function(data, status, headers, config){
+
+			});
+	};
+
 	$scope.options = {
 	  series: [
 	    {
