@@ -83,6 +83,7 @@ FourScore.controller('analyze', function($scope, $http, $window, $location, apiA
 	};
 
 	$scope.lineOptions = {
+	  lineMode: "cardinal",
 	  series: [
 	    {
 	      y: "val_0",

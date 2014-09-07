@@ -122,6 +122,14 @@ fieldset[disabled] .btn-grey.active {
 		display: none
 	}
 }
+@media (min-width: 992px) { 
+	#pieChart{
+		display: block;
+	}
+}
+.marginTop{
+	margin-top: 50px;
+}
 .scrollable{
 	overflow-y: auto;
 	height: 100%;
