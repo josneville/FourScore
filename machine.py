@@ -59,7 +59,7 @@ class Machine:
 		classifier = Pipeline([
 			#('vectorizer', CountVectorizer(analyzer='word',strip_accents='unicode', stop_words='english', binary=True )),
     			('tfidf', TfidfVectorizer(min_df=2, strip_accents='unicode', stop_words='english', tokenizer=tokenize, token_pattern=r'\w{1,}', binary=True, sublinear_tf=1, analyzer='word')),
-    			('scaler', StandardScaler(with_mean=False)),
+    			#('scaler', StandardScaler(with_mean=False)),
     			#('reduce', TruncatedSVD(n_components=15)),
     			#('tfidf', TfidfTransformer()),
     			('clf', MultinomialNB())])
